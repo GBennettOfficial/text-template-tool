@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextTemplateTool.Sql.Models
 {
-    internal record PropertyModel(string Name, Type Type, IReadOnlyList<string> AttributeData)
+    internal record PropertyModel(string Name, Type Type, int? MaxLength = null)
     {
-        public string SqlType => SharedFunctions.ToSqlType(Type);
+        public string SqlType => SharedFunctions.ToSqlType(Type, MaxLength);
         public string SqlNull => Nullable.GetUnderlyingType(Type) != null ? "NULL" : "NOT NULL";
     }
 }

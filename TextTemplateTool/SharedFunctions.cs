@@ -8,6 +8,35 @@ namespace TextTemplateTool
 {
     internal class SharedFunctions
     {
+        public static string ToSnakeCase(string pascal)
+        {
+            if (string.IsNullOrEmpty(pascal))
+                return pascal;
+
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < pascal.Length; i++)
+            {
+                char c = pascal[i];
+
+                if (char.IsUpper(c))
+                {
+                    // Add underscore if not the first character
+                    // and previous char is not uppercase (handles acronyms)
+                    if (i > 0 && !char.IsUpper(pascal[i - 1]))
+                        sb.Append('_');
+
+                    sb.Append(char.ToLowerInvariant(c));
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString();
+
+        }
         public static string ToSqlType(Type type, int? varcharSize)
         {
             bool isNullable = Nullable.GetUnderlyingType(type) != null;
