@@ -14,7 +14,7 @@ namespace TextTemplateTool.Sql.Services
             string idSql = SharedFunctions.ToSqlType(classModel.Properties.First(x => x.Name == "Id").Type, null);
 
             StringBuilder sb = new();
-            sb.AppendLine($"CREATE PROCEDURE [{schema}][usp_find_{classModel.Name}]");
+            sb.AppendLine($"CREATE PROCEDURE [{schema}].[usp_find_{SharedFunctions.ToSnakeCase(classModel.Name)}]");
             sb.AppendLine($"    @Id {idSql}");
             sb.AppendLine("AS");
             sb.AppendLine("BEGIN");
@@ -27,8 +27,8 @@ namespace TextTemplateTool.Sql.Services
                     sb.Append(", ");
                 sb.AppendLine();
             }
-            sb.AppendLine(")");
-            sb.AppendLine($"   FROM [{classModel.Schema}].[{classModel.Name}]");
+            sb.AppendLine("    )");
+            sb.AppendLine($"    FROM [{classModel.Schema}].[{classModel.Name}]");
             sb.AppendLine("    WHERE Id = @Id;");
             sb.AppendLine("END;");
             sb.AppendLine("RETURN 0;");

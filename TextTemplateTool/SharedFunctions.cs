@@ -39,48 +39,46 @@ namespace TextTemplateTool
         }
         public static string ToSqlType(Type type, int? varcharSize)
         {
-            bool isNullable = Nullable.GetUnderlyingType(type) != null;
-            string strIsNullable = isNullable ? " NULL" : "";
             type = Nullable.GetUnderlyingType(type) ?? type;
 
             if (type == typeof(string))
-                return $"VARCHAR({varcharSize?.ToString() ?? "255"})" + strIsNullable;
+                return $"VARCHAR({varcharSize?.ToString() ?? "255"})";
 
             else if (type == typeof(int))
-                return "INT" + strIsNullable;
+                return "INT";
 
             else if (type == typeof(long))
-                return "BIGINT" + strIsNullable;
+                return "BIGINT";
 
             else if (type == typeof(bool))
-                return "BIT" + strIsNullable;
+                return "BIT";
 
             else if (type == typeof(decimal))
-                return "DECIMAL(18,2)" + strIsNullable;
+                return "DECIMAL(18,2)";
 
             else if (type == typeof(double))
-                return "FLOAT" + strIsNullable;
+                return "FLOAT";
 
             else if (type == typeof(float))
-                return "REAL" + strIsNullable;
+                return "REAL";
 
             else if (type == typeof(DateTime))
-                return "DATETIME" + strIsNullable;
+                return "DATETIME";
 
             else if (type == typeof(Guid))
-                return "UNIQUEIDENTIFIER" + strIsNullable;
+                return "UNIQUEIDENTIFIER";
 
             else if (type == typeof(byte[]))
-                return "VARBINARY(MAX)" + strIsNullable;
+                return "VARBINARY(MAX)";
 
             else if (type == typeof(short))
-                return "SMALLINT" + strIsNullable;
+                return "SMALLINT";
 
             else if (type == typeof(byte))
-                return "TINYINT" + strIsNullable;
+                return "TINYINT";
 
             else if (type == typeof(TimeSpan))
-                return "TIME" + strIsNullable;
+                return "TIME";
 
             return "VARCHAR(255)";
         }
